@@ -14,6 +14,7 @@ const ctx = canvas.getContext("2d");
 const statusEl = document.getElementById("status");
 const scoreEl = document.getElementById("score");
 const highScoreEl = document.getElementById("high-score");
+const levelEl = document.getElementById("level");
 
 let handLandmarker;
 let lastVideoTime = -1;
@@ -28,6 +29,7 @@ highScoreEl.textContent = `Best: ${highScore}`;
 function addScore(points) {
   score += points;
   scoreEl.textContent = `Score: ${score}`;
+  levelEl.textContent = `Speed: x${getDifficultyMultiplier().toFixed(2)}`;
 
   if (score > highScore) {
     highScore = score;
@@ -252,16 +254,28 @@ function drawBladeTrail() {
 
 // ---------- FRUITS ----------
 
+// Every 100 points, fruits fall a bit faster. This reads the score
+// only at spawn time, so fruits already in the air don't suddenly
+// speed up mid-fall — only new ones do, which feels fairer.
+const SPEED_INCREASE_PER_LEVEL = 0.18; // 18% faster per 100-point level
+const POINTS_PER_LEVEL = 100;
+
+function getDifficultyMultiplier() {
+  const level = Math.floor(score / POINTS_PER_LEVEL);
+  return 1 + level * SPEED_INCREASE_PER_LEVEL;
+}
+
 function spawnFruit() {
   const type = FRUIT_TYPES[Math.floor(Math.random() * FRUIT_TYPES.length)];
   const x = 80 + Math.random() * (canvas.width - 160);
+  const speedMultiplier = getDifficultyMultiplier();
 
   fruits.push({
     x,
     y: -40,
     vx: (Math.random() - 0.5) * 2,
-    vy: 3 + Math.random() * 1.5,
-    gravity: 0.09,
+    vy: (3 + Math.random() * 1.5) * speedMultiplier,
+    gravity: 0.09 * speedMultiplier,
     radius: 34 + Math.random() * 12,
     rotation: 0,
     rotationSpeed: (Math.random() - 0.5) * 0.1,
