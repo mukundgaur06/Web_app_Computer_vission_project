@@ -4,46 +4,21 @@
   padding: 0;
 }
 
-body {
-  background: #0e0e10;
-  color: #f4f4f5;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* no scrollbars — this is a full-screen experience */
+  background: #000;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 24px;
+  color: #f4f4f5;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-header h1 {
-  font-size: 1.8rem;
-  letter-spacing: 0.5px;
-}
-
-#status {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-/* 
-  .stage is a positioning wrapper.
-  video and canvas are both "position: absolute" inside it,
-  so they overlap perfectly — the canvas draws ON TOP of the camera feed.
-*/
+/* The stage now fills the ENTIRE browser viewport. */
 .stage {
-  position: relative;
-  width: 640px;
-  max-width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 0 1px #27272a;
+  position: fixed;
+  inset: 0; /* shorthand for top/right/bottom/left: 0 */
+  width: 100vw;
+  height: 100vh;
 }
 
 #webcam,
@@ -53,14 +28,60 @@ header h1 {
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover; /* fills the screen without distorting the feed */
 }
 
-/* Mirror the webcam so it feels like a natural mirror, not reversed */
+/* Mirror the webcam so it feels like a natural mirror */
 #webcam {
   transform: scaleX(-1);
-  object-fit: cover;
 }
 
 #output-canvas {
   transform: scaleX(-1);
+}
+
+/* UI overlay sits ON TOP of the video/canvas.
+   pointer-events: none means clicks/taps pass THROUGH it to
+   whatever's underneath — the overlay never blocks interaction. */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+
+  /* subtle gradient so white text stays readable over any background */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+}
+
+.overlay h1 {
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+#status {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #d4d4d8;
+}
+
+#score-board {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+#score {
+  color: #fef08a;
+}
+
+#high-score {
+  color: #86efac;
 }

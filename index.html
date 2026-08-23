@@ -3,25 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Magic Canvas — Hand Tracking Project</title>
+  <title>Magic Canvas — Fruit Slice</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <h1>Magic Canvas</h1>
-    <p id="status">Starting camera...</p>
-  </header>
-
-  <!-- 
-    The video element shows the raw webcam feed.
-    The canvas sits exactly on top of it (see style.css) 
-    and is where we will later draw hand-tracking effects.
-    They must be the SAME width/height so coordinates line up.
+  <!--
+    Full-screen stage: video (raw webcam) + canvas (everything we draw:
+    blade, fruits, effects) stacked exactly on top of each other,
+    both filling the whole browser window.
   -->
   <div class="stage">
     <video id="webcam" autoplay playsinline></video>
     <canvas id="output-canvas"></canvas>
+
+    <!-- HTML overlay for UI text — kept OUTSIDE the canvas so we don't
+         have to hand-draw text with ctx.fillText for every frame. -->
+    <div class="overlay">
+      <h1>Magic Canvas</h1>
+      <p id="status">Starting camera...</p>
+      <div id="score-board">
+        <span id="score">Score: 0</span>
+        <span id="high-score">Best: 0</span>
+      </div>
+    </div>
+
   </div>
 
   <script type="module" src="script.js"></script>
