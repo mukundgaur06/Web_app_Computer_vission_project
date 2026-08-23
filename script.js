@@ -254,11 +254,11 @@ function drawBladeTrail() {
 
 // ---------- FRUITS ----------
 
-// Every 100 points, fruits fall a bit faster. This reads the score
+// Every 50 points, fruits fall a bit faster. This reads the score
 // only at spawn time, so fruits already in the air don't suddenly
 // speed up mid-fall — only new ones do, which feels fairer.
-const SPEED_INCREASE_PER_LEVEL = 0.18; // 18% faster per 100-point level
-const POINTS_PER_LEVEL = 100;
+const SPEED_INCREASE_PER_LEVEL = 0.5; // +0.5x speed per 50-point level
+const POINTS_PER_LEVEL = 50;
 
 function getDifficultyMultiplier() {
   const level = Math.floor(score / POINTS_PER_LEVEL);
