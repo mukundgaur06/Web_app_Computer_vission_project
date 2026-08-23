@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic Canvas — Hand Tracking Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Magic Canvas</h1>
+    <p id="status">Starting camera...</p>
+  </header>
+
+  <!-- 
+    The video element shows the raw webcam feed.
+    The canvas sits exactly on top of it (see style.css) 
+    and is where we will later draw hand-tracking effects.
+    They must be the SAME width/height so coordinates line up.
+  -->
+  <div class="stage">
+    <video id="webcam" autoplay playsinline></video>
+    <canvas id="output-canvas"></canvas>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
