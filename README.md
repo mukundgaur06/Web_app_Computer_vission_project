@@ -5,7 +5,7 @@ A browser-based, Fruit Ninja-style game controlled entirely by hand gestures —
 Built as a hands-on computer vision project to learn how to integrate a pre-trained AI model (MediaPipe's Hand Landmarker) into a real, interactive web application.
 
 <!-- Add a screenshot or short GIF of gameplay here once ready -->
-<!-- ![Gameplay demo](demo.gif) -->
+  ![Gameplay demo](demo.gif)
 
 ---
 
